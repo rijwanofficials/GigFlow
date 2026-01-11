@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 
 import { apiRouter } from "./api/v1/routes";
 import { connectMongoDB } from "./config/mongo";
-import { connectPostgres } from "./config/postgre";
+// import { connectPostgres } from "./config/postgre";
 import { initEmailService } from "./service/emailHelper";
 
 const app = express();
@@ -33,7 +33,7 @@ app.use("/api/v1", apiRouter);
 
 /* ---------- DB & Services ---------- */
 connectMongoDB();
-connectPostgres();
+// connectPostgres();
 initEmailService();
 
 /* ---------- Test ---------- */
