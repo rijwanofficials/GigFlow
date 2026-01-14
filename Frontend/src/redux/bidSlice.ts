@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { API_BASE_URL } from "../App";
 
 /* ---------- Types ---------- */
 
@@ -40,7 +41,7 @@ export const createBid = createAsyncThunk(
   "bids/create",
   async (data: { gigId: string; message: string; price: number }, thunkAPI) => {
     try {
-      const res = await fetch("http://localhost:4000/api/v1/bids", {
+      const res = await fetch(`${API_BASE_URL}/bids`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -66,7 +67,7 @@ export const fetchBidsForGig = createAsyncThunk(
   "bids/fetchForGig",
   async (gigId: string, thunkAPI) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/v1/bids/${gigId}`, {
+      const res = await fetch(`${API_BASE_URL}/bids/${gigId}`, {
         credentials: "include",
       });
 
@@ -90,7 +91,7 @@ export const hireBid = createAsyncThunk(
   async (bidId: string, thunkAPI) => {
     try {
       const res = await fetch(
-        `http://localhost:4000/api/v1/bids/${bidId}/hire`,
+        `${API_BASE_URL}/bids/${bidId}/hire`,
         {
           method: "PATCH",
           credentials: "include",
@@ -114,7 +115,7 @@ export const fetchMyBids = createAsyncThunk(
   "bids/fetchMyBids",
   async (_, thunkAPI) => {
     try {
-      const res = await fetch("http://localhost:4000/api/v1/bids/my", {
+      const res = await fetch(`${API_BASE_URL}/bids/my`, {
         credentials: "include",
       });
 

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { API_BASE_URL } from "../App";
 
 export interface Gig {
   _id: string;
@@ -33,7 +34,7 @@ export const fetchGigs = createAsyncThunk(
     try {
       const query = search ? `?search=${search}` : "";
       const res = await fetch(
-        `http://localhost:4000/api/v1/gigs${query}`,
+        `${API_BASE_URL}/gigs${query}`,
         {
           credentials: "include",
         }
@@ -61,7 +62,7 @@ export const createGig = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      const res = await fetch("http://localhost:4000/api/v1/gigs", {
+      const res = await fetch(`${API_BASE_URL}/gigs`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

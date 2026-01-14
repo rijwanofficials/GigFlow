@@ -3,6 +3,7 @@ import {
   createAsyncThunk,
   type PayloadAction,
 } from "@reduxjs/toolkit";
+import { API_BASE_URL } from "../App";
 
 export interface Notification {
   _id: string;
@@ -27,7 +28,7 @@ export const fetchMyNotifications = createAsyncThunk(
   "notifications/fetchMy",
   async (_, thunkAPI) => {
     try {
-      const res = await fetch("http://localhost:4000/api/v1/notifications/my", {
+      const res = await fetch(`${API_BASE_URL}/notifications/my`, {
         credentials: "include",
       });
 
