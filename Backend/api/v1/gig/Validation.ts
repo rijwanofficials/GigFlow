@@ -7,6 +7,7 @@ export const createGigValidator = (
   next: NextFunction
 ) => {
   const { title, description, budget } = req.body;
+  console.log("REQ BODY:", req.body);
 
   if (!title || !description || !budget) {
     return res.status(400).json({

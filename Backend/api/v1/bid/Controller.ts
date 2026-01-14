@@ -5,7 +5,7 @@ import { AuthRequest } from "../user/middleware";
 import { getAuthUserId } from "../helpers/authHelper";
 import mongoose from "mongoose";
 
- //Submit a bid
+//Submit a bid
 
 export const createBid = async (req: AuthRequest, res: Response) => {
   try {
@@ -59,7 +59,6 @@ export const createBid = async (req: AuthRequest, res: Response) => {
   }
 };
 
-
 // Get all bids for a gig (owner only)
 
 export const getBidsForGig = async (req: AuthRequest, res: Response) => {
@@ -84,14 +83,17 @@ export const getBidsForGig = async (req: AuthRequest, res: Response) => {
       .sort({ createdAt: -1 });
 
     res.json({
-        success: true,
-        data: bids
+      success: true,
+      data: bids,
     });
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch bids" });
   }
 };
 
+
+
+import { getIO } from "../../../socket";
 // Hire a bid
 export const hireBid = async (req: AuthRequest, res: Response) => {
   const session = await mongoose.startSession();
@@ -141,6 +143,14 @@ export const hireBid = async (req: AuthRequest, res: Response) => {
     await session.commitTransaction();
     session.endSession();
 
+    // Notify freelancer via Socket.io
+    const io = getIO();
+    io.to(bid.freelancerId.toString()).emit("hired", {
+      gigId: gig._id,
+      title: gig.title,
+      message: "You have been hired",
+    });
+
     return res.json({
       success: true,
       message: "Freelancer hired successfully",
@@ -155,6 +165,3 @@ export const hireBid = async (req: AuthRequest, res: Response) => {
     });
   }
 };
-
-
-

@@ -11,6 +11,8 @@ import { apiRouter } from "./api/v1/routes";
 import { connectMongoDB } from "./config/mongo";
 // import { connectPostgres } from "./config/postgre";
 import { initEmailService } from "./service/emailHelper";
+import { initSocket } from "./socket";
+import http from "http";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -25,8 +27,12 @@ app.use(
   })
 );
 
-app.use(express.json({ strict: false }));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//  ---------- Socket.io ---------- //
+const server = http.createServer(app);
+initSocket(server);
 
 /* ---------- Routes ---------- */
 app.use("/api/v1", apiRouter);
@@ -42,6 +48,6 @@ app.get("/testapp", (req, res) => {
 });
 
 /* ---------- Server ---------- */
-app.listen(PORT, () => {
-  console.log(`---✅ Server running on port ${PORT}---`);
+server.listen(PORT, () => {
+  console.log(`---✅Server running on port ${PORT}---`);
 });
