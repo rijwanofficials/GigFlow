@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { API_BASE_URL } from "../App";
+import { API_BASE_URL } from "../config/api";
 
 interface User {
   id: string;
@@ -41,13 +41,11 @@ export const loginUser = createAsyncThunk(
 
       const result = await res.json();
       console.log("result after login api hit", result);
-
-      // 🔥 THIS IS THE MISSING PIECE
       if (!res.ok || result.success === false) {
         return thunkAPI.rejectWithValue(result.message);
       }
 
-      return result; // ✅ only success reaches here
+      return result;
     } catch {
       return thunkAPI.rejectWithValue("Login failed");
     }

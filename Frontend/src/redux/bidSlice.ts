@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API_BASE_URL } from "../App";
+import { API_BASE_URL } from "../config/api";
+
 
 /* ---------- Types ---------- */
 

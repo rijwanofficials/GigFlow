@@ -3,8 +3,7 @@ import {
   createAsyncThunk,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import { API_BASE_URL } from "../App";
-
+import { API_BASE_URL } from "../config/api";
 export interface Notification {
   _id: string;
   type: "hired";
