@@ -7,13 +7,12 @@ function EditableProfileDetails() {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  // Local editable state (NO BACKEND)
+  // Local editable state (NO BACKEND) have started backend but not integrated yet
   const [name, setName] = useState(user?.name || "");
   const [mobile, setMobile] = useState("");
   const [location, setLocation] = useState("India");
 
   const handleSave = () => {
-    // 🔥 Backend will come here later
     console.log("SAVE PROFILE (future API)", {
       name,
       mobile,
@@ -22,13 +21,6 @@ function EditableProfileDetails() {
 
     setIsEditing(false);
   };
-
-  // const handleCancel = () => {
-  //   setName(user?.name || "");
-  //   setMobile("");
-  //   setLocation("India");
-  //   setIsEditing(false);
-  // };
 
   return (
     <div className="bg-white rounded-xl shadow p-6">
