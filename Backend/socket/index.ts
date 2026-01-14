@@ -7,7 +7,7 @@ export const initSocket = (server: http.Server) => {
   try {
     io = new Server(server, {
       cors: {
-        origin: "https://gig-flow-hazel.vercel.app",
+        origin: "https://gig-flow-git-main-rijwanofficials-projects.vercel.app",
         credentials: true,
         methods: ["GET", "POST"],
       },
