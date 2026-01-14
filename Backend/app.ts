@@ -22,8 +22,10 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ["https://gig-flow-1eg8ck6f9-rijwanofficials-projects.vercel.app/", "http://localhost:5173"],
+    origin: "https://gig-flow-hazel.vercel.app",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
