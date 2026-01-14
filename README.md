@@ -8,8 +8,8 @@
 - Real-time notifications using Socket.io
 
 ## 🛠 Tech Stack
-Frontend: React + Vite + Tailwind + Redux Toolkit  
-Backend: Node.js + Express + MongoDB  
+Frontend: React + Vite + Tailwind + Redux Toolkit + Type Script
+Backend: Node.js + Express + MongoDB+ Type Script
 Auth: JWT + HttpOnly Cookies  
 Real-time: Socket.io  
 
