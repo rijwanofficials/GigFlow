@@ -16,7 +16,9 @@ export const authMiddleware = (
   next: NextFunction
 ) => {
   try {
+    console.log("🔐 Auth middleware hit");
     const token = req.cookies?.token;
+    console.log(token);
 
     if (!token) {
       return res.status(401).json({
@@ -30,8 +32,8 @@ export const authMiddleware = (
     ) as AuthRequest["user"];
 
     req.user = decoded;
+    console.log("in middleware", req.user);
 
-    // 5️⃣ Allow request to continue
     next();
   } catch (error) {
     // 6️⃣ Token invalid / expired

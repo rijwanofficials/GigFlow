@@ -6,6 +6,12 @@ export interface Bid {
   _id: string;
   message: string;
   price: number;
+  gigId: {
+    _id: string;
+    title: string;
+    status: "open" | "assigned";
+  };
+  
   status: "pending" | "hired" | "rejected";
   freelancerId: {
     _id: string;
@@ -32,10 +38,7 @@ const initialState: BidState = {
 
 export const createBid = createAsyncThunk(
   "bids/create",
-  async (
-    data: { gigId: string; message: string; price: number },
-    thunkAPI
-  ) => {
+  async (data: { gigId: string; message: string; price: number }, thunkAPI) => {
     try {
       const res = await fetch("http://localhost:4000/api/v1/bids", {
         method: "POST",
@@ -63,10 +66,9 @@ export const fetchBidsForGig = createAsyncThunk(
   "bids/fetchForGig",
   async (gigId: string, thunkAPI) => {
     try {
-      const res = await fetch(
-        `http://localhost:4000/api/v1/bids/${gigId}`,
-        { credentials: "include" }
-      );
+      const res = await fetch(`http://localhost:4000/api/v1/bids/${gigId}`, {
+        credentials: "include",
+      });
 
       const result = await res.json();
 
@@ -104,6 +106,27 @@ export const hireBid = createAsyncThunk(
       return bidId;
     } catch {
       return thunkAPI.rejectWithValue("Failed to hire freelancer");
+    }
+  }
+);
+
+export const fetchMyBids = createAsyncThunk(
+  "bids/fetchMyBids",
+  async (_, thunkAPI) => {
+    try {
+      const res = await fetch("http://localhost:4000/api/v1/bids/my", {
+        credentials: "include",
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        return thunkAPI.rejectWithValue(json.message);
+      }
+
+      return json.data;
+    } catch {
+      return thunkAPI.rejectWithValue("Failed to fetch my bids");
     }
   }
 );
@@ -149,6 +172,17 @@ const bidSlice = createSlice({
             ? { ...bid, status: "hired" }
             : { ...bid, status: "rejected" }
         );
+      })
+      // Fetch my bids
+      .addCase(fetchMyBids.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMyBids.fulfilled, (state, action) => {
+        state.loading = false;
+        state.bids = action.payload;
+      })
+      .addCase(fetchMyBids.rejected, (state) => {
+        state.loading = false;
       });
   },
 });

@@ -13,7 +13,7 @@ export const initSocket = (server: http.Server) => {
     });
 
     io.on("connection", (socket: Socket) => {
-      console.log("🔌 Socket connected:", socket.id);
+      console.log("---✅Socket connected---", socket.id);
 
       // Join user room
       socket.on("join", (userId: unknown) => {
@@ -27,7 +27,7 @@ export const initSocket = (server: http.Server) => {
           }
 
           socket.join(userId);
-          console.log(`👤 User joined room: ${userId}`);
+          console.log(`---✅ User joined room: ${userId}---`);
         } catch (error) {
           console.error("❌ Error while joining room:", error);
         }
@@ -38,7 +38,7 @@ export const initSocket = (server: http.Server) => {
       });
 
       socket.on("disconnect", (reason) => {
-        console.log(`🔌 Socket disconnected (${socket.id}):`, reason);
+        console.log(`----❌ Socket disconnected (${socket.id})----:`, reason);
       });
     });
 

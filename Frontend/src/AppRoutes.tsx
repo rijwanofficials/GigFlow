@@ -8,6 +8,7 @@ import Profile from "./Pages/Profile";
 import PageNotFound from "./Pages/PageNotFound";
 import PostGig from "./Pages/CreateGig";
 import ViewBids from "./Pages/ViewBids";
+import PlaceBid from "./Pages/PlaceBid";
 
 function AppRoutes() {
   return (
@@ -24,6 +25,8 @@ function AppRoutes() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/post-gig" element={<PostGig />} />
           <Route path="/gigs/:gigId/bids" element={<ViewBids />} />
+          <Route path="/gigs/:gigId/place-bid" element={<PlaceBid />} />
+
         </Route>
 
         {/* 🔴 404 fallback */}

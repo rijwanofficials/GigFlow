@@ -4,6 +4,7 @@ import Bid from "../../../models/bidSchema";
 import { AuthRequest } from "../user/middleware";
 import { getAuthUserId } from "../helpers/authHelper";
 import mongoose from "mongoose";
+import Notification from "../../../models/notificationSchema";
 
 //Submit a bid
 
@@ -91,8 +92,6 @@ export const getBidsForGig = async (req: AuthRequest, res: Response) => {
   }
 };
 
-
-
 import { getIO } from "../../../socket";
 // Hire a bid
 export const hireBid = async (req: AuthRequest, res: Response) => {
@@ -145,6 +144,18 @@ export const hireBid = async (req: AuthRequest, res: Response) => {
 
     // Notify freelancer via Socket.io
     const io = getIO();
+
+    // after successful transaction commit
+    await Notification.create({
+      userId: bid.freelancerId,
+      type: "hired",
+      message: `You have been hired for "${gig.title}"`,
+      meta: {
+        gigId: gig._id,
+      },
+    });
+
+    // emit socket event
     io.to(bid.freelancerId.toString()).emit("hired", {
       gigId: gig._id,
       title: gig.title,
@@ -162,6 +173,31 @@ export const hireBid = async (req: AuthRequest, res: Response) => {
     return res.status(400).json({
       success: false,
       message: error.message || "Hiring failed",
+    });
+  }
+};
+
+export const getMyBids = async (req: AuthRequest, res: Response) => {
+  try {
+    console.log("----i am inside getMyBids Controller---");
+    const userId = getAuthUserId(req);
+    console.log("user id on getMyBids:", userId);
+
+    const bids = await Bid.find({
+      freelancerId: new mongoose.Types.ObjectId(userId),
+    })
+      .populate("gigId", "title status")
+      .sort({ createdAt: -1 });
+
+    return res.json({
+      success: true,
+      data: bids,
+    });
+  } catch (error) {
+    console.error("GET MY BIDS ERROR", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch your bids",
     });
   }
 };

@@ -22,36 +22,11 @@ interface AuthState {
 const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
-  loading: false,
+  loading: true,
   error: null,
 };
 
-/* =========================
-   ASYNC ACTIONS (Context → async functions)
-========================= */
-
 // 🔹 Login
-// export const loginUser = createAsyncThunk(
-//   "auth/login",
-//   async (data: { email: string; password: string }, thunkAPI) => {
-//     try {
-//       const res = await fetch("http://localhost:4000/api/v1/auth/login", {
-//         method: "POST",
-//         credentials: "include",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(data),
-//       });
-
-//       const result = await res.json();
-//       console.log("result after login api hit", result);
-//       console.log(result.message);
-//       return result;
-//     } catch {
-//       return thunkAPI.rejectWithValue("Login failed");
-//     }
-//   }
-// );
-
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (data: { email: string; password: string }, thunkAPI) => {
@@ -117,6 +92,9 @@ export const signupUser = createAsyncThunk(
       });
 
       const json = await res.json();
+      if (!res.ok) {
+        return thunkAPI.rejectWithValue(json.message);
+      }
       return json.user;
     } catch {
       return thunkAPI.rejectWithValue("Signup failed");
@@ -134,6 +112,11 @@ export const fetchProfile = createAsyncThunk(
       });
 
       const json = await res.json();
+
+      if (!res.ok) {
+        return thunkAPI.rejectWithValue(json.message);
+      }
+
       return json.user;
     } catch {
       return thunkAPI.rejectWithValue("Not authenticated");
@@ -260,6 +243,8 @@ const authSlice = createSlice({
       })
       .addCase(fetchProfile.rejected, (state) => {
         state.loading = false;
+        state.user = null;
+        state.isAuthenticated = false;
       })
 
       // LOGOUT

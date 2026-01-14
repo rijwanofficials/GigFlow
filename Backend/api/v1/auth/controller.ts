@@ -104,7 +104,7 @@ const loginController = async (req: Request, res: Response) => {
 };
 
 const logoutController = (req: Request, res: Response) => {
-  res.clearCookie("access_token", {
+  res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",

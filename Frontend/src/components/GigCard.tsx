@@ -10,34 +10,69 @@ interface Props {
 function GigCard({ gig }: Props) {
   const user = useSelector((state: RootState) => state.auth.user);
   const navigate = useNavigate();
+
   const isOwner = user?.id === gig.ownerId._id;
 
   return (
-    <div className="border rounded p-4 shadow-sm">
-      <h2 className="text-lg font-semibold">{gig.title}</h2>
-      <p className="text-sm text-gray-600">{gig.description}</p>
+    <div className="bg-white rounded-xl shadow hover:shadow-md transition p-5 flex flex-col justify-between">
+      {/* HEADER */}
+      <div>
+        <div className="flex justify-between items-start mb-2">
+          <h2 className="text-lg font-semibold text-gray-900">
+            {gig.title}
+          </h2>
 
-      <p className="mt-2 font-medium">Budget: ₹{gig.budget}</p>
+          <span
+            className={`text-xs px-3 py-1 rounded-full font-medium ${
+              gig.status === "open"
+                ? "bg-green-100 text-green-700"
+                : "bg-gray-200 text-gray-600"
+            }`}
+          >
+            {gig.status.toUpperCase()}
+          </span>
+        </div>
 
-      <p className="text-xs text-gray-500">Posted by: {gig.ownerId.name}</p>
+        <p className="text-sm text-gray-600 line-clamp-3 mb-4">
+          {gig.description}
+        </p>
+      </div>
 
-      <div className="mt-4">
+      {/* FOOTER */}
+      <div className="border-t pt-4 flex justify-between items-center">
+        <div>
+          <p className="text-xs text-gray-500">Budget</p>
+          <p className="text-lg font-bold text-gray-900">
+            ₹{gig.budget.toLocaleString()}
+          </p>
+          <p className="text-xs text-gray-500 mt-1">
+            Posted by {gig.ownerId.name}
+          </p>
+        </div>
+
+        {/* ACTIONS */}
         {!user && (
-          <button className="text-sm text-blue-600"
-          onClick={() => navigate("/login")}
-          >Login to Bid</button>
+          <button
+            onClick={() => navigate("/login")}
+            className="text-sm text-blue-600 font-medium hover:underline"
+          >
+            Login to Bid
+          </button>
         )}
 
         {user && !isOwner && (
-          <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm">
+          <button
+            onClick={() => navigate(`/gigs/${gig._id}/place-bid`)}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
+          >
             Place Bid
           </button>
         )}
 
         {user && isOwner && (
           <button
-            className="bg-gray-700 text-white px-3 py-1 rounded text-sm hover:bg-gray-800 hover:cursor-pointer"
             onClick={() => navigate(`/gigs/${gig._id}/bids`)}
+            className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 transition"
           >
             View Bids
           </button>

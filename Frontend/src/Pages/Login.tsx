@@ -71,7 +71,9 @@ function Login() {
           </button>
         </form>
 
-        <div className="mt-4 text-center text-sm text-gray-600">
+        <div className="mt-4 text-center text-sm text-gray-600"
+          onClick={() => navigate("/signup")}
+        >
           Don’t have an account?{" "}
           <span className="text-blue-700 cursor-pointer hover:underline">
             Sign up

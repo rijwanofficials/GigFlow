@@ -14,7 +14,6 @@ function Navbar() {
 
   const handleLogout = async () => {
     const result = await dispatch(logoutUser());
-    
 
     if (logoutUser.fulfilled.match(result)) {
       ShowSuccessToast("Logged out successfully");
