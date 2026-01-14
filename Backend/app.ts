@@ -22,8 +22,9 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: true,
+    origin: "https://gig-flow-hazel.vercel.app/",
     credentials: true,
+
   })
 );
 
