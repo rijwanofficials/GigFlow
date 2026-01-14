@@ -1,5 +1,5 @@
 {
-  "name": "ai-docs",
+  "name": "backend",
   "version": "1.0.0",
   "main": "app.ts",
   "scripts": {
