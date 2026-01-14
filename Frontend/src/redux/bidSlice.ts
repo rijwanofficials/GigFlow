@@ -41,7 +41,7 @@ export const createBid = createAsyncThunk(
   "bids/create",
   async (data: { gigId: string; message: string; price: number }, thunkAPI) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/bids`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/bids`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -67,7 +67,7 @@ export const fetchBidsForGig = createAsyncThunk(
   "bids/fetchForGig",
   async (gigId: string, thunkAPI) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/bids/${gigId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/bids/${gigId}`, {
         credentials: "include",
       });
 
@@ -115,7 +115,7 @@ export const fetchMyBids = createAsyncThunk(
   "bids/fetchMyBids",
   async (_, thunkAPI) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/bids/my`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/bids/my`, {
         credentials: "include",
       });
 

@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async (data: { email: string; password: string }, thunkAPI) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/auth/login`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -59,7 +59,7 @@ export const sendOtp = createAsyncThunk(
   "auth/sendOtp",
   async (email: string, thunkAPI) => {
     try {
-      await fetch(`${API_BASE_URL}/otps/send`, {
+      await fetch(`${API_BASE_URL}/api/v1/otps/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -85,7 +85,7 @@ export const signupUser = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/auth/signup`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/auth/signup`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -108,7 +108,7 @@ export const fetchProfile = createAsyncThunk(
   "auth/profile",
   async (_, thunkAPI) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/users/profile`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/users/profile`, {
         credentials: "include",
       });
 
@@ -130,7 +130,7 @@ export const logoutUser = createAsyncThunk(
   "auth/logout",
   async (_, thunkAPI) => {
     try {
-      await fetch(`${API_BASE_URL}/auth/logout`, {
+      await fetch(`${API_BASE_URL}/api/v1/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -149,7 +149,7 @@ export const uploadAvatar = createAsyncThunk(
       const formData = new FormData();
       formData.append("avatar", file);
 
-      const res = await fetch(`${API_BASE_URL}/users/avatar`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/users/avatar`, {
         method: "POST",
         credentials: "include",
         body: formData,

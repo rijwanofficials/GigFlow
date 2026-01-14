@@ -28,7 +28,7 @@ export const fetchMyNotifications = createAsyncThunk(
   "notifications/fetchMy",
   async (_, thunkAPI) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/notifications/my`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/notifications/my`, {
         credentials: "include",
       });
 
