@@ -1,13 +1,51 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../redux/store";
+import { fetchGigs } from "../redux/gigSlice";
+import GigCard from "../components/GigCard";
 function Home() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-100">
-      <div className="text-center max-w-xl">
-        <h1 className="text-4xl font-bold text-blue-900">AI Docs</h1>
+  const dispatch = useDispatch<AppDispatch>();
+  
+  const { gigs, loading } = useSelector((state: RootState) => state.gig);
 
-        <p className="mt-4 text-gray-700">
-          Secure document workflow and verification platform.
-        </p>
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    dispatch(fetchGigs(undefined));
+  }, [dispatch]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(fetchGigs(search));
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">Available Gigs</h1>
+
+      {/* Search */}
+      <form onSubmit={handleSearch} className="flex gap-2 mb-6">
+        <input
+          type="text"
+          placeholder="Search gigs..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 border rounded px-3 py-2"
+        />
+        <button className="bg-black text-white px-4 rounded">Search</button>
+      </form>
+
+      {/* Loading */}
+      {loading && <p>Loading gigs...</p>}
+
+      {/* Gig List */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {gigs.map((gig) => (
+          <GigCard key={gig._id} gig={gig} />
+        ))}
       </div>
+
+      {!loading && gigs.length === 0 && <p>No gigs found</p>}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import type { AppDispatch, RootState } from "../redux/store";
 import { loginUser } from "../redux/authSlice";
 import { ShowErrorToast, ShowSuccessToast } from "../utils/toast";
 import { useNavigate } from "react-router-dom";
+import { connectSocket } from "../socket/socket";
 
 function Login() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function Login() {
     const action = await dispatch(loginUser({ email, password }));
     if (loginUser.fulfilled.match(action)) {
       ShowSuccessToast("Login successful");
+      connectSocket(action.payload._id);
       navigate("/");
     } else if (loginUser.rejected.match(action)) {
       ShowErrorToast(action.payload as string);

@@ -14,6 +14,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     const result = await dispatch(logoutUser());
+    
 
     if (logoutUser.fulfilled.match(result)) {
       ShowSuccessToast("Logged out successfully");
@@ -31,7 +32,7 @@ function Navbar() {
   return (
     <nav className="w-full bg-blue-900 text-white px-6 py-3 flex justify-between items-center">
       <NavLink to="/" className="font-bold text-lg">
-        AI Docs
+        GigFlow
       </NavLink>
 
       <div className="flex items-center gap-4 text-sm">
@@ -48,6 +49,14 @@ function Navbar() {
 
         {isAuthenticated && (
           <>
+            {/* 🔥 Post Gig Button */}
+            <NavLink
+              to="/post-gig"
+              className="bg-white text-blue-900 px-3 py-1 rounded font-medium hover:bg-gray-100"
+            >
+              Post Gig
+            </NavLink>
+
             <NavLink to="/profile" className={linkClass}>
               {user?.name || "Profile"}
             </NavLink>

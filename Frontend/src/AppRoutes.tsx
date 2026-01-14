@@ -6,6 +6,8 @@ import Signup from "./Pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import Profile from "./Pages/Profile";
 import PageNotFound from "./Pages/PageNotFound";
+import PostGig from "./Pages/CreateGig";
+import ViewBids from "./Pages/ViewBids";
 
 function AppRoutes() {
   return (
@@ -20,6 +22,8 @@ function AppRoutes() {
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/post-gig" element={<PostGig />} />
+          <Route path="/gigs/:gigId/bids" element={<ViewBids />} />
         </Route>
 
         {/* 🔴 404 fallback */}
