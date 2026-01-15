@@ -24,7 +24,8 @@ function LandingNavbar() {
   };
 
   const handleLogout = async () => {
-    await dispatch(logoutUser());
+    const res = await dispatch(logoutUser());
+    console.log("Response of logout", res);
     ShowSuccessToast("Logged out successfully");
     navigate("/");
   };
@@ -48,12 +49,11 @@ function LandingNavbar() {
           <button
             onClick={() => scrollToSection("featured-gigs")}
             className={linkClass}
-               hover:text-green-600
+            hover:text-green-600
             text-sm
             font-medium
             hover:cursor-pointer
           >
-           
             Find Work
           </button>
 
