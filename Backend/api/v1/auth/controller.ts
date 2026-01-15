@@ -80,6 +80,7 @@ const loginController = async (req: Request, res: Response) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -106,8 +107,9 @@ const loginController = async (req: Request, res: Response) => {
 const logoutController = (req: Request, res: Response) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    secure: true,
+    sameSite: "none",
+    path: "/",
   });
 
   return res.status(200).json({

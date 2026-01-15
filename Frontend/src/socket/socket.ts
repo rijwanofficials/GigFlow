@@ -5,7 +5,7 @@ let socket: Socket | null = null;
 
 export const connectSocket = (userId: string) => {
   if (!socket) {
-    socket = io("http://localhost:4000", {
+    socket = io("https://gigflow-42g0.onrender.com", {
       withCredentials: true,
     });
 
