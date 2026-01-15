@@ -22,7 +22,6 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "http://localhost:3000",
   "https://https://gig-flow-eh6325em5-rijwanofficials-projects.vercel.app/",
   "https://gig-flow-hazel.vercel.app/",
 ];
@@ -32,7 +31,6 @@ app.use(
     origin: (origin, callback) => {
       // allow server-to-server or Postman
       if (!origin) return callback(null, true);
-
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
