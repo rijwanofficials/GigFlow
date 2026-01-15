@@ -62,7 +62,6 @@ export const sendOtp = createAsyncThunk(
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
       return true;
     } catch {
       return thunkAPI.rejectWithValue("Failed to send OTP");
