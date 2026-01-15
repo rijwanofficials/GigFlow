@@ -20,23 +20,15 @@ const PORT = process.env.PORT || 5000;
 /* ---------- Middlewares ---------- */
 app.use(cookieParser());
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://gig-flow-hazel.vercel.app/",
-  "https://https://gig-flow-eh6325em5-rijwanofficials-projects.vercel.app/",
-];
+// const allowedOrigins = [
+//   "http://localhost:5173",
+//   "https://gig-flow-hazel.vercel.app/",
+//   "https://https://gig-flow-eh6325em5-rijwanofficials-projects.vercel.app/",
+// ];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // allow server-to-server or Postman
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "https://gig-flow-hazel.vercel.app",
     credentials: true,
   })
 );
@@ -65,5 +57,3 @@ app.get("/testapp", (req, res) => {
 server.listen(PORT, () => {
   console.log(`---✅Server running on port ${PORT}---`);
 });
-
-
