@@ -30,6 +30,7 @@ export const createGig = async (req: Request, res: Response) => {
 // GET OPEN GIGS
 export const getOpenGigs = async (req: Request, res: Response) => {
   try {
+    console.log("=== GIGS CONTROLLER HIT ===");
     const search = req.query.search as string;
     const filter: any = { status: "open" };
     if (search) {

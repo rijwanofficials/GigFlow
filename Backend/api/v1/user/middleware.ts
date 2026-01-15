@@ -16,7 +16,7 @@ export const authMiddleware = (
   next: NextFunction
 ) => {
   try {
-    console.log("🔐 Auth middleware hit");
+    console.log("=== AUTH START ===");
     const token = req.cookies?.token;
     console.log(token);
 

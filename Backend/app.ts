@@ -22,8 +22,8 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://https://gig-flow-eh6325em5-rijwanofficials-projects.vercel.app/",
   "https://gig-flow-hazel.vercel.app/",
+  "https://https://gig-flow-eh6325em5-rijwanofficials-projects.vercel.app/",
 ];
 
 app.use(
@@ -65,3 +65,5 @@ app.get("/testapp", (req, res) => {
 server.listen(PORT, () => {
   console.log(`---✅Server running on port ${PORT}---`);
 });
+
+
