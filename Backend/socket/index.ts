@@ -2,12 +2,18 @@ import { Server, Socket } from "socket.io";
 import http from "http";
 
 let io: Server | null = null;
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://gig-flow-git-main-rijwanofficials-projects.vercel.app",
+  "https://gig-flow-hazel.vercel.app",
+];
 
 export const initSocket = (server: http.Server) => {
   try {
     io = new Server(server, {
       cors: {
-        origin: "https://gig-flow-git-main-rijwanofficials-projects.vercel.app",
+        origin: allowedOrigins,
         credentials: true,
         methods: ["GET", "POST"],
       },

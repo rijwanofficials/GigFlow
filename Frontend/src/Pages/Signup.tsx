@@ -6,8 +6,7 @@ import { ShowErrorToast, ShowSuccessToast } from "../utils/toast";
 
 function Signup() {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, error } = useSelector((state: RootState) => state.auth);
-  console.log(error);
+  const { loading } = useSelector((state: RootState) => state.auth);
 
   const [step, setStep] = useState<1 | 2>(1);
   const [email, setEmail] = useState("");
@@ -15,15 +14,15 @@ function Signup() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  // STEP 1: Send OTP
+  /* STEP 1: SEND OTP */
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-
     dispatch(clearError());
+
     const result = await dispatch(sendOtp(email));
 
     if (sendOtp.fulfilled.match(result)) {
-      ShowSuccessToast("OTP sent successfully");
+      ShowSuccessToast("OTP sent to your email");
       setStep(2);
     }
 
@@ -32,11 +31,13 @@ function Signup() {
     }
   };
 
-  // STEP 2: Register
+  /* STEP 2: REGISTER */
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result = await dispatch(signupUser({ email, otp, name, password }));
+    const result = await dispatch(
+      signupUser({ email, otp, name, password })
+    );
 
     if (signupUser.fulfilled.match(result)) {
       ShowSuccessToast("Account created successfully");
@@ -48,37 +49,35 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-300 px-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-center text-blue-900">
-          Create Account
-        </h2>
-
-        <p className="text-sm text-gray-500 text-center mt-1">
-          Secure document workflow platform
+    <div className="min-h-screen flex items-center justify-center bg-white px-4">
+      <div className="w-full max-w-md">
+        {/* HEADER */}
+        <h1 className="text-2xl font-bold text-center mb-2">
+          Create your account
+        </h1>
+        <p className="text-center text-gray-500 mb-8">
+          Join GigFlow and start hiring or getting hired
         </p>
 
         {/* STEP 1 */}
         {step === 1 && (
-          <form onSubmit={handleSendOtp} className="mt-6 space-y-4">
+          <form onSubmit={handleSendOtp} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
+              <label className="text-sm font-medium">Email address</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="mt-1 w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800 transition disabled:opacity-60"
+              className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-medium transition disabled:opacity-60"
             >
               Send OTP
             </button>
@@ -87,55 +86,49 @@ function Signup() {
 
         {/* STEP 2 */}
         {step === 2 && (
-          <form onSubmit={handleRegister} className="mt-6 space-y-4">
+          <form onSubmit={handleRegister} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                OTP
-              </label>
+              <label className="text-sm font-medium">OTP</label>
               <input
                 type="text"
                 required
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 placeholder="Enter OTP"
-                className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="mt-1 w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Full Name
-              </label>
+              <label className="text-sm font-medium">Full name</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Rijwan Hussain"
-                className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                placeholder="Your full name"
+                className="mt-1 w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
+              <label className="text-sm font-medium">Password</label>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                placeholder="Create a password"
+                className="mt-1 w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800 transition disabled:opacity-60"
+              className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-medium transition disabled:opacity-60"
             >
-              Register
+              Create account
             </button>
 
             <button
@@ -144,12 +137,20 @@ function Signup() {
                 dispatch(clearError());
                 setStep(1);
               }}
-              className="w-full text-sm text-blue-700 hover:underline"
+              className="w-full text-sm text-green-500 hover:underline"
             >
               Change email
             </button>
           </form>
         )}
+
+        {/* FOOTER */}
+        <p className="text-center text-sm text-gray-500 mt-6">
+          Already have an account?{" "}
+          <a href="/login" className="text-green-500 font-medium">
+            Login
+          </a>
+        </p>
       </div>
     </div>
   );

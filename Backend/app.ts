@@ -20,12 +20,26 @@ const PORT = process.env.PORT || 5000;
 /* ---------- Middlewares ---------- */
 app.use(cookieParser());
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://gig-flow-git-main-rijwanofficials-projects.vercel.app",
+  "https://gig-flow-hazel.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "https://gig-flow-git-main-rijwanofficials-projects.vercel.app",
+    origin: (origin, callback) => {
+      // allow server-to-server or Postman
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

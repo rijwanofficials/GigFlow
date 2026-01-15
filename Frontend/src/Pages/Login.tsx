@@ -1,85 +1,86 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../redux/store";
+import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/authSlice";
+import type { AppDispatch } from "../redux/store";
 import { ShowErrorToast, ShowSuccessToast } from "../utils/toast";
 import { useNavigate } from "react-router-dom";
-import { connectSocket } from "../socket/socket";
 
 function Login() {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const dispatch = useDispatch<AppDispatch>();
-  const { loading } = useSelector((state: RootState) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const action = await dispatch(loginUser({ email, password }));
-    if (loginUser.fulfilled.match(action)) {
+    const result = dispatch(loginUser({ email, password }));
+    if (loginUser.fulfilled.match(result)) {
       ShowSuccessToast("Login successful");
-      connectSocket(action.payload._id);
       navigate("/");
-    } else if (loginUser.rejected.match(action)) {
-      ShowErrorToast(action.payload as string);
+    }
+
+    if (loginUser.rejected.match(result)) {
+      ShowErrorToast(result.payload as string);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-300 px-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-center text-blue-900">
-          Login to AI Docs
-        </h2>
-        <p className="text-sm text-gray-500 text-center mt-1">
-          Secure document workflow platform
-        </p>
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </div>
+    <div className="w-full max-w-md justify-center container mx-auto mt-20 p-8 bg-white rounded-xl shadow-lg">
+      {/* Title */}
+      <h1 className="text-2xl font-bold text-center mb-2">Welcome back</h1>
+      <p className="text-center text-gray-500 mb-8">
+        Sign in to your account to continue
+      </p>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800 transition disabled:opacity-60"
-          >
-            Login
-          </button>
-        </form>
-
-        <div className="mt-4 text-center text-sm text-gray-600"
-          onClick={() => navigate("/signup")}
-        >
-          Don’t have an account?{" "}
-          <span className="text-blue-700 cursor-pointer hover:underline">
-            Sign up
-          </span>
+      {/* Login Form */}
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div>
+          <label className="text-sm font-medium">Email address</label>
+          <input
+            type="email"
+            className="mt-1 w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
-      </div>
+
+        <div>
+          <label className="text-sm font-medium">Password</label>
+          <input
+            type="password"
+            className="mt-1 w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <div className="flex justify-between items-center text-sm">
+          <label className="flex items-center gap-2">
+            <input type="checkbox" />
+            Remember me
+          </label>
+          <button className="text-green-500 hover:underline">
+            Forgot password?
+          </button>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-medium transition"
+        >
+          Login
+        </button>
+      </form>
+
+      <p className="text-center text-sm text-gray-500 mt-6">
+        Don’t have an account?{" "}
+        <a href="/signup" className="text-green-500 font-medium">
+          Sign up
+        </a>
+      </p>
     </div>
   );
 }
