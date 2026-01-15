@@ -7,6 +7,7 @@ const OTP_LIMIT = 5;
 const OTP_WINDOW_HOURS = 3;
 const sendOtpController = async (req: Request, res: Response) => {
   try {
+    console.log("-------inside otp Controller----");
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (user) {

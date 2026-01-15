@@ -20,6 +20,7 @@ function Signup() {
     dispatch(clearError());
 
     const result = await dispatch(sendOtp(email));
+    console.log("Result of otp response ", result);
 
     if (sendOtp.fulfilled.match(result)) {
       ShowSuccessToast("OTP sent to your email");
@@ -35,9 +36,7 @@ function Signup() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result = await dispatch(
-      signupUser({ email, otp, name, password })
-    );
+    const result = await dispatch(signupUser({ email, otp, name, password }));
 
     if (signupUser.fulfilled.match(result)) {
       ShowSuccessToast("Account created successfully");

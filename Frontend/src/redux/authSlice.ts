@@ -57,12 +57,17 @@ export const sendOtp = createAsyncThunk(
   "auth/sendOtp",
   async (email: string, thunkAPI) => {
     try {
-      await fetch(`${API_BASE_URL}/api/v1/otps/send`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/otps/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      return true;
+      console.log("response of otp ", res);
+      const result = await res.json();
+
+      if (!res.ok) {
+        return thunkAPI.rejectWithValue(result.message);
+      }
     } catch {
       return thunkAPI.rejectWithValue("Failed to send OTP");
     }

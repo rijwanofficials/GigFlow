@@ -23,8 +23,8 @@ app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "https://gig-flow-git-main-rijwanofficials-projects.vercel.app",
-  "https://gig-flow-hazel.vercel.app",
+  "https://https://gig-flow-eh6325em5-rijwanofficials-projects.vercel.app/",
+  "https://gig-flow-hazel.vercel.app/",
 ];
 
 app.use(
