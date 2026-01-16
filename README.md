@@ -1,5 +1,4 @@
-🚀 GigFlow – Freelance Gig Management Platform
-
+#GigFlow – Freelance Gig Management Platform
 A backend-focused full-stack web application built using the MERN stack to connect clients and freelancers through gig posting, bidding, and hiring workflows. GigFlow demonstrates real-world backend development concepts such as authentication, REST API design, database integration, real-time events, and production debugging.
 
 ✨ Features
