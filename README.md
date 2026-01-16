@@ -1,58 +1,60 @@
-GigFlow – Freelance Gig Management Platform
+🚀 GigFlow – Freelance Gig Management Platform
 
-GigFlow is a backend-focused full-stack web application designed to connect clients and freelancers through a simple gig posting and bidding workflow. The project demonstrates real-world backend engineering concepts including authentication, REST API design, database integration, and production-level debugging.
+A backend-focused full-stack web application built using the MERN stack to connect clients and freelancers through gig posting, bidding, and hiring workflows. GigFlow demonstrates real-world backend development concepts such as authentication, REST API design, database integration, real-time events, and production debugging.
 
-This application was built with a strong emphasis on backend development practices, secure authentication, and scalable API architecture.
+✨ Features
 
-Features
-
-Authentication & Authorization
+Secure Authentication
 
 JWT-based authentication
 
-Secure login & signup flow
+HTTP-only cookies
 
-Protected routes using middleware
+Password hashing with bcrypt
 
 User & Profile Management
 
-User registration and login
+Signup & login flow
 
-Profile fetching and updates
+Fetch logged-in user profile
+
+Role-based access handling
 
 Gig Management
 
-Create, fetch, and list gigs
+Create, view, and list gigs
 
-Role-based access (owner vs freelancer)
+Budget & ownership validation
 
-Budget and gig ownership handling
+Public gig discovery
 
-Bidding System
+Bidding & Hiring System
 
 Freelancers can place bids on gigs
 
-Gig owners can view bids on their gigs
+Gig owners can view bids
 
-Hiring workflow with secure validation
+Hire freelancer functionality
 
 Real-Time Notifications
 
-Socket.io integration for hiring events
+Socket.io integration
 
-Instant notifications when a freelancer is hired
+Instant notification when a freelancer is hired
 
 RESTful API Architecture
 
-Clean API structure with proper HTTP status codes
+Clean route structure
 
 Centralized error handling
+
+Proper HTTP status codes
 
 Production-Ready Setup
 
 Environment-based configuration
 
-Debugged real deployment issues (CORS, 500 errors, auth edge cases)
+Debugged real production issues (CORS, 500 errors, auth)
 
 Backend deployed on Render
 
