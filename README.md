@@ -1,99 +1,233 @@
-# 🚀 GigFlow – Real-Time Gig Hiring Platform
+GigFlow – Freelance Gig Management Platform
 
-GigFlow is a full-stack MERN application designed to simplify gig hiring with secure authentication and real-time updates. The platform allows users to post gigs, apply for jobs, and receive instant notifications when they are hired.
+GigFlow is a backend-focused full-stack web application designed to connect clients and freelancers through a simple gig posting and bidding workflow. The project demonstrates real-world backend engineering concepts including authentication, REST API design, database integration, and production-level debugging.
 
----
+This application was built with a strong emphasis on backend development practices, secure authentication, and scalable API architecture.
 
-## ✨ Features
+Features
 
-- 🔐 Secure authentication using JWT and HTTP-only cookies  
-- 👤 User profiles with role-based access  
-- 📄 Create, browse, and apply for gigs  
-- ⚡ Real-time hiring notifications using Socket.IO  
-- 🔔 Notification system stored and managed via Redux  
-- 🌐 Production-ready setup with CORS and cookie handling  
+Authentication & Authorization
 
----
+JWT-based authentication
 
-## 🛠 Tech Stack
+Secure login & signup flow
 
-**Frontend**
-- React  
-- Redux Toolkit  
-- TypeScript  
-- Fetch API  
+Protected routes using middleware
 
-**Backend**
-- Node.js  
-- Express.js  
-- MongoDB  
-- JWT Authentication  
-- Socket.IO  
+User & Profile Management
 
-**Other**
-- Cookie-based authentication (HTTP-only cookies)  
-- CORS configuration for cross-origin requests  
+User registration and login
 
----
+Profile fetching and updates
 
-## 🔄 Application Flow
+Gig Management
 
-1. Users register and log in securely using email and password  
-2. JWT is stored in an HTTP-only cookie for authentication  
-3. Logged-in users can create gigs or apply for available gigs  
-4. When a user is hired, a real-time notification is sent using Socket.IO  
-5. Users can log out, which clears the authentication cookie from the browser  
+Create, fetch, and list gigs
 
----
+Role-based access (owner vs freelancer)
 
-## 🧪 Authentication & Security
+Budget and gig ownership handling
 
-- Uses HTTP-only cookies to prevent XSS attacks  
-- Secure and SameSite cookie configuration for production  
-- Proper logout flow that clears cookies from the browser  
-- Backend-protected routes with middleware  
+Bidding System
 
----
+Freelancers can place bids on gigs
 
-## 📦 Setup Instructions (Local)
+Gig owners can view bids on their gigs
 
+Hiring workflow with secure validation
 
-# Clone the repository
-git clone <your-repo-url>
+Real-Time Notifications
 
-# Install backend dependencies
-cd Backend
-npm install
+Socket.io integration for hiring events
 
-# Install frontend dependencies
-cd ../frontend
-npm install
+Instant notifications when a freelancer is hired
 
-env file
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-NODE_ENV=development
+RESTful API Architecture
 
-# Backend
-npm run dev
+Clean API structure with proper HTTP status codes
 
-# Frontend
-npm run dev
-🚀 Deployment
-Frontend deployed on Vercel
+Centralized error handling
+
+Production-Ready Setup
+
+Environment-based configuration
+
+Debugged real deployment issues (CORS, 500 errors, auth edge cases)
 
 Backend deployed on Render
-MongoDB hosted on MongoDB Atlas
 
-#Future Improvements
-Payment integration for gigs
+Frontend deployed on Vercel
 
-Advanced search and filtering
+📁 Project Structure
+gigflow/
+├── backend/
+│   ├── config/
+│   │   └── db.ts              # MongoDB connection
+│   ├── controllers/
+│   │   ├── auth.controller.ts
+│   │   ├── user.controller.ts
+│   │   ├── gig.controller.ts
+│   │   ├── bid.controller.ts
+│   │   └── notification.controller.ts
+│   ├── middleware/
+│   │   ├── auth.middleware.ts
+│   │   └── error.middleware.ts
+│   ├── models/
+│   │   ├── User.ts
+│   │   ├── Gig.ts
+│   │   ├── Bid.ts
+│   │   └── Notification.ts
+│   ├── routes/
+│   │   ├── auth.routes.ts
+│   │   ├── user.routes.ts
+│   │   ├── gig.routes.ts
+│   │   ├── bid.routes.ts
+│   │   └── notification.routes.ts
+│   ├── socket/
+│   │   └── index.ts           # Socket.io setup
+│   ├── app.ts
+│  
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── redux/
+│   │   ├── socket/
+│   │   └── utils/
+│   └── vite.config.ts
+├
+├
+└── README.md
 
-Admin dashboard
+🛠️ Prerequisites
 
-Analytics and reporting
+Before running the project, ensure you have:
 
-Author
+Node.js (v18+)
+
+MongoDB (local or Atlas)
+
+npm or yarn
+
+Git
+
+🚀 Getting Started
+1. Clone the Repository
+git clone https://github.com/rijwanofficials/gigflow.git
+cd gigflow
+
+2. Environment Configuration
+
+Create a .env file in the backend directory:
+
+PORT=4000
+MONGO_URI=mongodb://localhost:27017/gigflow
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRE=30d
+CLIENT_URL=http://localhost:5173
+
+3. Backend Setup
+cd backend
+npm install
+npm run dev
+
+
+Backend will start at:
+
+http://localhost:4000
+
+4. Frontend Setup
+cd frontend
+npm install
+npm run dev
+
+
+Frontend will start at:
+
+http://localhost:5173
+
+🔑 API Endpoints (Core)
+Authentication
+Method	Endpoint	Description
+POST	/api/v1/auth/signup	User registration
+POST	/api/v1/auth/login	User login
+GET	/api/v1/users/profile	Get logged-in user
+Gigs
+Method	Endpoint	Description
+POST	/api/v1/gigs	Create a gig
+GET	/api/v1/gigs	Fetch all gigs
+GET	/api/v1/gigs/:id	Get gig by ID
+Bids
+Method	Endpoint	Description
+POST	/api/v1/bids	Place a bid
+GET	/api/v1/bids/my	Get my bids
+GET	/api/v1/bids/:gigId	View bids for a gig
+PATCH	/api/v1/bids/:bidId/hire	Hire a freelancer
+Notifications
+Method	Endpoint	Description
+GET	/api/v1/notifications/my	Fetch user notifications
+🔒 Security Highlights
+
+Password hashing using bcrypt
+
+JWT-secured API routes
+
+HTTP-only cookies for authentication
+
+Environment variables for sensitive data
+
+Role-based access checks
+
+🧪 Testing & Debugging
+
+APIs tested using Postman
+
+Debugged:
+
+CORS issues between Vercel & Render
+
+500 Internal Server Errors
+
+Authentication cookie issues
+
+Socket.io production setup
+
+🚀 Deployment
+Backend
+
+Deployed on Render
+
+Environment variables configured securely
+
+Frontend
+
+Deployed on Vercel
+
+Backend base URL injected using VITE_BACKEND_URL
+
+📈 What This Project Demonstrates
+
+Strong backend fundamentals
+
+REST API design & security
+
+Authentication & authorization workflows
+
+Real-time communication using Socket.io
+
+Production debugging & deployment experience
+
+End-to-end MERN stack understanding
+
+📄 License
+
+This project is licensed under the MIT License.
+
+👨‍💻 Author
+
 Rijwan Husain
-Full Stack MERN Developer
+📧 Email: husainrijwan2001@gmail.com
+
+🔗 LinkedIn: https://www.linkedin.com/in/rijwanln/
+
+💻 GitHub: https://github.com/rijwanofficials
