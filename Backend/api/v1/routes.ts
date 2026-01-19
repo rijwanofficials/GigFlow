@@ -15,5 +15,4 @@ apiRouter.use("/gigs", gigRoutes);
 apiRouter.use("/bids", bidRoutes);
 apiRouter.use("/notifications", notificationRoutes);
 
-
 export { apiRouter };

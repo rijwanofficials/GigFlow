@@ -65,7 +65,7 @@ const loginController = async (req: Request, res: Response) => {
       });
     }
 
-    // 🔐 Generate JWT
+    //  Generate JWT
     const token = jwt.sign(
       {
         userId: user._id.toString(),
@@ -75,7 +75,7 @@ const loginController = async (req: Request, res: Response) => {
       { expiresIn: "7d" } as jwt.SignOptions
     );
 
-    // 🍪 Set cookie
+    // Set cookie
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,

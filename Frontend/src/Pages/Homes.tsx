@@ -6,6 +6,7 @@ import HeroSection from "../components/HeroSection";
 import { FeaturedFreelancers } from "../components/Freelancers";
 import GigsSection from "../components/GigsSection";
 import HowItWorks from "../components/HowItWorks";
+import CallToAction from "../components/CallToAction";
 
 function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -42,6 +43,8 @@ function Home() {
       <section id="featured-freelancers">
         <FeaturedFreelancers />
       </section>
+
+      <CallToAction />
     </>
   );
 }

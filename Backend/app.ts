@@ -13,6 +13,7 @@ import { connectMongoDB } from "./config/mongo";
 import { initEmailService } from "./service/emailHelper";
 import { initSocket } from "./socket";
 import http from "http";
+import { connectPostgres } from "./config/postgre";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,9 +29,9 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://gig-flow-hazel.vercel.app",
+    origin: ["https://gig-flow-hazel.vercel.app", "http://localhost:5173"],
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
@@ -45,7 +46,7 @@ app.use("/api/v1", apiRouter);
 
 /* ---------- DB & Services ---------- */
 connectMongoDB();
-// connectPostgres();
+connectPostgres();
 initEmailService();
 
 /* ---------- Test ---------- */
