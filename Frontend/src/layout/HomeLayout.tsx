@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
+import Navbar from "../components/LandingNavbar";
 import Footer from "../components/Footer";
-import AppNavbar from "../components/AppNavbar";
 
 function AppLayout() {
   return (
     <div className="flex flex-col min-h-screen">
-      <AppNavbar />
+      <Navbar />
 
       {/* Page Content */}
       <main className="grow">

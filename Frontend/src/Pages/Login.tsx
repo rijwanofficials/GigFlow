@@ -14,7 +14,8 @@ function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = dispatch(loginUser({ email, password }));
+    const result = await dispatch(loginUser({ email, password }));
+    console.log("result on login page ", result);
     if (loginUser.fulfilled.match(result)) {
       ShowSuccessToast("Login successful");
       navigate("/");

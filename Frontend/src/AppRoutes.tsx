@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
+
+import HomeLayout from "./layout/HomeLayout";
 import AppLayout from "./layout/AppLayout";
+
 import Home from "./Pages/Homes";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
@@ -13,25 +16,22 @@ import PlaceBid from "./Pages/PlaceBid";
 function AppRoutes() {
   return (
     <Routes>
-      {/* Layout wrapper */}
-      <Route element={<AppLayout />}>
-        {/* Public routes */}
+      <Route element={<HomeLayout />}>
         <Route path="/" element={<Home />} />
+      </Route>
+      <Route element={<AppLayout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/post-gig" element={<PostGig />} />
           <Route path="/gigs/:gigId/bids" element={<ViewBids />} />
           <Route path="/gigs/:gigId/place-bid" element={<PlaceBid />} />
-
         </Route>
-
-        {/* 🔴 404 fallback */}
-        <Route path="*" element={<PageNotFound />} />
       </Route>
+
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }
